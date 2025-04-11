@@ -1,0 +1,24 @@
+import unittest
+from selenium import webdriver
+from pom.login_page import LoginPage
+from pom.pim_page import PIMPage
+
+class TestEmployeeManagement(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+        self.login_page = LoginPage(self.driver)
+        self.pim_page = PIMPage(self.driver)
+        self.login_page.login("Admin", "admin123")
+
+    def test_add_employee(self):
+        self.pim_page.navigate_to_pim()
+        self.pim_page.add_employee("John", "Doe")
+        # Add verification for employee addition
+
+    def tearDown(self):
+        self.driver.quit()
+
+if __name__ == "__main__":
+    unittest.main()
+
